@@ -10,7 +10,7 @@
 - HotelNumberResource
 
 ## Структура базы данных
-В базе данных хранятся две таблицы: `user` и `hotel_number`.
+В базе данных хранятся три таблицы: `user`,  `hotel_number` и `hotels`
 
 В таблице `user` храниться:
 - user_id(primary key)
@@ -21,4 +21,9 @@
 В таблице `hotel_number` храниться:
 - hotel_number_id(primary key)
 - free_time
+- hotel_id(foreign key)
+
+В таблице `hotels` храниться:
+- hotel_id(primary key)
+- all_numbers
 
