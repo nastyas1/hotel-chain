@@ -5,25 +5,32 @@
 
 ## Написанные классы(в будущем)
 - User
+- Hotel
 - HotelNumber
 - UserResource
+- HotelResourse
 - HotelNumberResource
 
 ## Структура базы данных
-В базе данных хранятся три таблицы: `user`,  `hotel_number` и `hotels`
+В базе данных хранятся три таблицы: `user`,  `hotel_number` и `hotel`
 
 В таблице `user` храниться:
 - user_id(primary key)
-- nickname
+- name
+- email
+- about
 - password
+- created_date
 - hotel_number_id(foreign key)
+
+В таблице `hotel` храниться:
+- hotel_id(primary key)
+- name
+- coordinate
 
 В таблице `hotel_number` храниться:
 - hotel_number_id(primary key)
+- number
 - free_time
 - hotel_id(foreign key)
-
-В таблице `hotels` храниться:
-- hotel_id(primary key)
-- all_numbers
 
