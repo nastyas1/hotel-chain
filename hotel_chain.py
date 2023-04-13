@@ -23,19 +23,142 @@ def regestranion():
 <h1 align="center">Сервис бронирования гостиниц в Москве</h1>
 <h2 align="center">Войдите или зарегестрируйтесь</h2>
 <div class="container">
+    <h4>Войдите в свой аккаунт</h4>
+    <form action="/entrance" method="get" target="_blank">
+      <button type="submit">Вход</button>
+    </form>
+    <br>
+    <h4>Или</h4>
+    <br>
+    <h4>Зарегестрируйтесь, если его нет</h4>
+    <form action="/reg" method="get" target="_blank">
+      <button type="submit">Регестрация</button>
+    </form>
+    
+</div>
+</body>
+</html>"""
+
+
+@app.route('/entrance', methods=['POST', 'GET'])
+def vhod():
+    if request.method == 'GET':
+        return f"""<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
+    <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
+    <title>Вход</title>
+</head>
+<body>
+<h1 align="center">Вход</h1>
+<div class="container">
     <form class="login_form" method="post">
         <div class="form-group">
-            <p style="margin-left: 70px;"></p>
-            <input type="text" class="form-control" id="name" placeholder="Введите имя" name="name" required>
-            <p style="margin-left: 40px;"></p>
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                   placeholder="Введите адрес электронной почты" name="email" required>
-            <p style="margin-left: 40px;"></p>
-            <input type="text" class="form-control" id="password" placeholder="Введите пароль" name="password" required>
-            <p style="margin-left: 40px;"></p>
+                   placeholder="Введите адрес эл. почты" name="email" required>
+            <br>
+
+            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp"
+                   placeholder="Введите пароль" name="password" required>
+            <br>
         </div>
-        <p style="margin-left: 40px;"></p>
-        <button type="submit" class="btn btn-primary">Вход/Регестрация</button>
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+</div>
+</body>
+</html>"""
+    elif request.method == 'POST':
+        return redirect('/cabin')
+
+
+@app.route('/reg', methods=['POST', 'GET'])
+def reg():
+    if request.method == 'GET':
+        return f"""<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
+    <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
+    <title>Регестрация</title>
+</head>
+<body>
+<h1 align="center">Регестрация</h1>
+<div class="container">
+    <form class="login_form" method="post">
+        <div class="form-group">
+            <input type="text" class="form-control" id="surname" placeholder="Введите фамилию"
+                   name="surname" required>
+            <br>
+            <input type="text" class="form-control" id="name" placeholder="Введите имя" name="name" required>
+            <br>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   placeholder="Введите адрес почты" name="email" required>
+            <br>
+            <input type="phonenumber" class="form-control" id="phonenumber" aria-describedby="phonenumberHelp"
+                   placeholder="Введите номер телефона" name="phonenumber" required>
+            <br>
+            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp"
+                   placeholder="Введите пароль" name="password" required>
+            <br>
+        </div>
+        <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+    </form>
+</div>
+</body>
+</html>"""
+    elif request.method == 'POST':
+        return redirect('/cabin')
+
+
+@app.route('/cabin', methods=['POST', 'GET'])
+def cab():
+    if request.method == 'GET':
+        return f"""<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
+    <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h1 align="center">Личный кабинет</h1>
+<div class="container">
+<h3>Личная информация:</h3>
+<h5>Имя:</h5>
+<h5>Фамилия:</h5>
+<h5>Эл. почта:</h5>
+<h5>Номер телефона:</h5>
+<h5>Пароль:</h5>
+<form action="/reg" method="get" target="_blank">
+  <button type="submit">Заполнить заново</button>
+</form>
+<hr>
+<h3>Действующие брони:</h3>
+
+<hr>
+    <form class="login_form" method="post">
+        <button type="submit" class="btn btn-primary">Создать новую бронь</button>
     </form>
 </div>
 </body>
@@ -58,7 +181,7 @@ def hotels_map():
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous">
     <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
-    <title>Отбор астронавтов</title>
+    <title>Выбор места</title>
 </head>
 <body>
 <h1 align="center">Сервис бронирования гостиниц в Москве</h1>
@@ -105,7 +228,7 @@ def date_and_time():
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous">
     <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
-    <title>Отбор астронавтов</title>
+    <title>Выбор времени</title>
 </head>
 <body>
 <h1 align="center">Сервис бронирования гостиниц в Москве</h1>
