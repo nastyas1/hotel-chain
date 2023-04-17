@@ -2,7 +2,7 @@ import flask
 from flask import request, jsonify
 
 from . import db_session
-from .hotels import Hotel
+from data.hotels import Hotel
 
 blueprint = flask.Blueprint('hotels_api', __name__, template_folder='templates')
 

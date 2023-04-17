@@ -1,8 +1,8 @@
 import flask
 from flask import request, jsonify
 
-from . import db_session
-from .hotel_numbers import HotelNumber
+from .. import db_session
+from data.hotel_numbers import HotelNumber
 
 blueprint = flask.Blueprint('hotel_numbers_api', __name__, template_folder='templates')
 

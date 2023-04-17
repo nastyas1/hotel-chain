@@ -1,8 +1,8 @@
 import flask
 from flask import request, jsonify
 
-from . import db_session
-from .users import User
+from .. import db_session
+from data.users import User
 
 blueprint = flask.Blueprint('users_api', __name__, template_folder='templates')
 
