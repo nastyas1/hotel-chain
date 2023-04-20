@@ -7,6 +7,9 @@ from data.hotel_numbers import HotelNumber
 
 class HotelNumbersResource(Resource):
     def get(self, hotel_number_id):
+        """
+        возвращает один номер отеля по id
+        """
         abort_if_hotels_not_found(hotel_number_id)
         session = create_session()
         hotel_number = session.query(HotelNumber).get(hotel_number_id)
@@ -14,6 +17,9 @@ class HotelNumbersResource(Resource):
             only=('number', 'free_time'))})
 
     def post(self, hotel_number_id):
+        """
+        записывает в базу данных номер отеля по id
+        """
         args = parser.parse_args()
         abort_if_hotels_not_found(hotel_number_id)
         session = create_session()
@@ -27,6 +33,9 @@ class HotelNumbersResource(Resource):
 
 
     def delete(self, hotel_number_id):
+        """
+        удаляет данные номер отеля по id
+        """
         abort_if_hotels_not_found(hotel_number_id)
         session = create_session()
         hotel_number = session.query(HotelNumber).get(hotel_number_id)
@@ -55,6 +64,9 @@ class HotelNumbersListResource(Resource):
 
 
 def abort_if_hotels_not_found(hotel_number_id):
+    """
+    возвращает сообщение об ошибке, если id номера отеля не существует
+    """
     session = create_session()
     hotel_number = session.query(HotelNumber).get(hotel_number_id)
     if not hotel_number:

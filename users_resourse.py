@@ -7,6 +7,9 @@ from data.users import User
 
 class UsersResource(Resource):
     def get(self, user_id):
+        """
+        возвращает одного человека по id
+        """
         abort_if_users_not_found(user_id)
         session = create_session()
         user = session.query(User).get(user_id)
@@ -14,6 +17,9 @@ class UsersResource(Resource):
             only=('name', 'email', 'about',))})
 
     def post(self, user_id):
+        """
+        записывает в базу данных человека по id
+        """
         args = parser.parse_args()
         abort_if_users_not_found(user_id)
         session = create_session()
@@ -28,6 +34,9 @@ class UsersResource(Resource):
 
 
     def delete(self, user_id):
+        """
+        удаляет данные человека по id
+        """
         abort_if_users_not_found(user_id)
         session = create_session()
         user = session.query(User).get(user_id)
@@ -57,6 +66,9 @@ class UsersListResource(Resource):
 
 
 def abort_if_users_not_found(user_id):
+    """
+    возвращает сообщение об ошибке, если id человек не существует
+    """
     session = create_session()
     user = session.query(User).get(user_id)
     if not user:
