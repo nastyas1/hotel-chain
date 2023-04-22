@@ -591,8 +591,29 @@ def date_and_time():
      
         </html>"""
     elif request.method == 'POST':
-        return "Бронь успешно создана"
-        # Здесь добавлю конечное окно
+        return redirect('/closereg')
+
+
+@app.route('/closereg', methods=['POST', 'GET'])  # Страница завершения регестрации и перенаправление в личный кабинет
+def close_reg():
+    if request.method == 'GET':
+        return f"""<!doctype html>
+        <html lang="en">
+        <head>
+            <meta http-equiv="refresh" content="3;url=/cabin" />
+            <link
+                    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+                    rel="stylesheet"
+                    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+                    crossorigin="anonymous">
+            <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
+            <title>Бронь создана</title>
+        </head>
+        </body>
+        <h1 align="center">Бронь успешно создана</h1>
+        <h2 align="center">Перенаправляем в личный кабинет</h2>
+        </body>
+        </html>"""
 
 
 if __name__ == '__main__':
