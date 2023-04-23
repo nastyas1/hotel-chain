@@ -11,47 +11,38 @@
     <link href="{url_for('static', filename='css/style.css')}" rel="stylesheet" type="text/css">
     <title>Бронирование номера в гостинице</title>
 </head>
-
 <body>
-
 <header>
     <nav class="navbar navbar-light bg-light">
         <h1>Hotel Chain</h1>
-
-        <a class="btn btn-primary " href="/reg" target="_blank">Регестрация</a>
-
-        <a class="btn btn-primary" href="/entrance" target="_blank">Вход</a>
-
     </nav>
+    <div style="width: 1px; height: 1px; position: absolute; top: 0px; left: 1400px;">
+        <img src="static/images/apartlux.jpg"
+         alt=" "
+         width="100"
+         height="70">
+    </div>
     <div class="col-1 col-lg-2 mb-3">
     </div>
 </header>
-
-
 <h1 align="center">Сервис бронирования гостиниц в Москве</h1>
 <h2 align="center">Войдите или зарегистрируйтесь</h2>
-
 <div class="container">
     <h4>Войдите в свой аккаунт</h4>
-
     <form action="/entrance" method="get" target="_blank">
     <button type="submit">Вход</button>
     <! - - Кнопка перехода на страницу входа -->
-
     </form>
-
     <br>
     <h4>Или</h4>
     <br>
     <h4>Зарегистрируйтесь, если его нет</h4>
-
     <form action="/reg" method="get" target="_blank">
     <button type="submit">Регистрация</button>
     <! - - Кнопка перехода на страницу регестрации -->
     </form>
 </div>
 </body>
-
 <footer class="bd-footer py-4 py-md-5 mt-5 bg-light">
     <div class="container py-4 py-md-5 px-4 px-md-3">
         <div class="row">
@@ -69,7 +60,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="col-6 col-lg-2 offset-lg-1 mb-3">
                 <h5>Ссылка на GitHub с проектом</h5>
                 <ul class="list-unstyled">
@@ -80,5 +70,4 @@
         </div>
     </div>
 </footer>
-
 </html>
