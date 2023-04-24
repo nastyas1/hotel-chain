@@ -1,10 +1,9 @@
-import datetime
 import sqlalchemy
 from flask_login import UserMixin
 from sqlalchemy import orm
 from sqlalchemy_serializer import SerializerMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from data.db_session import SqlAlchemyBase
+from data.db_sess import SqlAlchemyBase
 
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
@@ -15,17 +14,17 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(
         sqlalchemy.String, index=True, unique=True, nullable=True)
-    about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    about = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    number_phone = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    created_date = sqlalchemy.Column(
-        sqlalchemy.DateTime, default=datetime.datetime.now)
+    busy_day_id = sqlalchemy.Column(sqlalchemy.Integer,
+                                        sqlalchemy.ForeignKey("busy_day.id"), nullable=True)
+    
+    busy_day = orm.relationship('BusyDay')
 
-    hotel_number_id = sqlalchemy.Column(sqlalchemy.Integer,
-                                        sqlalchemy.ForeignKey("hotel_number.id"), nullable=False)
-    hotel_number = orm.relationship('User')
 
     def __repr__(self):
-        return f'<User> {self.id} {self.name} {self.email}'
+        return f'<User> {self.name} {self.email}'
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

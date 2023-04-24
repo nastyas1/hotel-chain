@@ -1,6 +1,8 @@
 {
     "python.analysis.extraPaths": [
         "./data",
+        "./data",
+        "./data",
         "./data"
     ]
 }
