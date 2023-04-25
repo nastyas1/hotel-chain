@@ -30,18 +30,13 @@ def global_init(db_file):
     SqlAlchemyBase.metadata.create_all(engine)
     session = create_session()
     from data.hotels import Hotel
-    try:
-        print(session.query(Hotel).count() , 'найден, сервис доступен.')
-        session.close()
-    except IndexError:
+    if session.query(Hotel).count() == 0:
         print('Сервис запущен, происходит загрузка первичных данных.')
         session.close()
         start_data_in_bd()  # добавление в БД информацию
-
-
-
-
-
+    else:
+        print('сервис доступен.')
+        session.close()
 
 
 def start_data_in_bd():
@@ -115,8 +110,6 @@ def new_user(user):
     print(user)
     session.commit()
     session.close()
-
-
 
 
 def create_session() -> Session:
