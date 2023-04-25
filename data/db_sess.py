@@ -64,11 +64,12 @@ def start_data_in_bd():
         data = nxt_usr.split(';')
         user.id = int(data[0])
         user.name = str(data[1])
-        user.email = str(data[2])
-        user.about = str(data[3])
-        user.number_phone = int(data[4])
-        user.set_password(data[5])
-        user.busy_day_id = int(data[6])
+        user.second_name = str(data[2])
+        user.email = str(data[3])
+        user.about = str(data[4])
+        user.number_phone = int(data[5])
+        user.set_password(data[6])
+        user.busy_day_id = int(data[7])
         session.add(user)
         print(user)
     user_file.close()
@@ -108,7 +109,12 @@ def bron_del_from_db(id):
     session.close()
 
 
-# def new_user()
+def new_user(user):
+    session = create_session()
+    session.add(user)
+    print(user)
+    session.commit()
+    session.close()
 
 
 

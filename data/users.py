@@ -15,10 +15,10 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     email = sqlalchemy.Column(
         sqlalchemy.String, index=True, unique=True, nullable=True)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    number_phone = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    number_phone = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     busy_day_id = sqlalchemy.Column(sqlalchemy.Integer,
-                                        sqlalchemy.ForeignKey("busy_day.id"), nullable=True)
+                                        sqlalchemy.ForeignKey("busy_day.id"), nullable=False, default=1)
     
     busy_day = orm.relationship('BusyDay')
 

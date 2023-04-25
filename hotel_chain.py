@@ -5,6 +5,8 @@ from wtforms.validators import DataRequired
 from flask_login import LoginManager
 from data.db_sess import *
 from flask_login import LoginManager, login_user, login_required, logout_user
+from data import db_sess
+
 
 
 app = Flask(__name__)
@@ -22,12 +24,15 @@ def load_user(user_id):
 
 class LoginForm(FlaskForm):
     username = StringField('User', validators=[DataRequired()])
-    email = PasswordField('Email', validators=[DataRequired()])
-    number_phone = PasswordField('Number phone', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    number_phone = StringField('Number phone', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    about = PasswordField('About', validators=[DataRequired()])
+    about = StringField('About', validators=[DataRequired()])
     remember_me = BooleanField('Remember me')
     submit = SubmitField('Login')
+    
+    
+
 
 
 
@@ -42,40 +47,48 @@ def regestranion():
     return render_template('start_page.html', form=form)
 
 
-@app.route('/entrance', methods=['POST', 'GET'])  # Страница входа
-def vhod():
-    form = FormsClass()
-    if request.method == 'GET':
-        return render_template('entrance_page.html', form=form)
-    elif request.method == 'POST':
+# @app.route('/entrance', methods=['POST', 'GET'])  # Страница входа
+# def vhod():
+#     form = FormsClass()
+#     if request.method == 'GET':
+#         return render_template('entrance_page.html', form=form)
+#     elif request.method == 'POST':
 
-        return redirect('/cabin')
+#         return redirect('/cabin')
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     from data.users import User
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         db_sess = create_session()
-#         user = db_sess.query(User).filter(User.name == form.username.data).first()
-#         if user and user.check_password(form.password.data):
-#             login_user(user, remember=form.remember_me.data)
-#             return redirect("/cabin")
-#         return render_template('login.html',
-#                                message="Не верный пароль или ник",
-#                                form=form)
-#     return render_template('login.html', title='Получить доступ', form=form)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    from data.users import User
+    form = LoginForm()
+    # if form.validate_on_submit():
+    if request.method == 'POST':
+        db_sess = create_session()
+        user = db_sess.query(User).filter(User.name == form.username.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/cabin")
+        return render_template('login.html', form=form)
+    else:
+        return render_template('login.html', form=form)
 
 
 
 @app.route('/reg', methods=['POST', 'GET'])  # Страница регистрации
 def reg():
-    form = FormsClass()
-    if request.method == 'GET':
-        return render_template('regestr_page.html', form=form)
-    elif request.method == 'POST':
+    form = LoginForm()
+    if form.validate_on_submit():
+        from data.users import User
+        from data.db_sess import new_user
+        user = User()
+        user.name = form.username.data
+        user.email = form.email.data
+        user.about = form.email.data
+        user.number_phone = form.number_phone.data
+        user.hashed_password = form.password.data
+        new_user(user)
         return redirect('/cabin')
+    return render_template('reg.html', form=form)
 
 
 @app.route('/cabin', methods=['POST', 'GET'])  # Страница личного кабинета

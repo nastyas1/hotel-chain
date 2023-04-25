@@ -2,13 +2,19 @@
 
 {% block content %}
 <body>
-    <h3>Вход</h3>
+    <h3>Регистрация</h3>
     <form action="" method='POST' name="myform">
         {{ form.login_form }}
         <p>
         {{ form.username.label }} {{form.username(class_="form-control")}} {{form.hidden_tag()}}
         <p>
+        {{ form.email.label }} {{form.email(class_="form-control", type="email")}} {{form.hidden_tag()}}
+        <p>
+        {{ form.number_phone.label }} {{form.number_phone(class_="form-control")}} {{form.hidden_tag()}}
+        <p>
         {{ form.password.label }} {{form.password(class_="form-control", type="password")}} {{form.hidden_tag()}}
+        <p>
+        {{ form.about.label }} {{form.about(class_="form-control")}} {{form.hidden_tag()}}
         <p>
         {{ form.remember_me.label }} {{form.remember_me(class_="form-control")}} {{form.hidden_tag()}}
         <p>
