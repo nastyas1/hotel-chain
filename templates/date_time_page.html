@@ -34,27 +34,16 @@
     <form class="login_form" method="post">
         <div class="form-group">
             <p style="margin-left: 70px;"></p>
-            <label for="educationSelect"> Выберите дату и время начала </label>
+            <h3> Выберите период пребывания: </h3>
+            <form action="" method='POST' name="myform">
+                {{ form.csrt_token }}
 
-            <input type="datetime-local" id="datetimeLocalToday">
-            <script>
-            document.getElementById('datetimeLocalToday').value = new Date().toJSON().slice(0,0);
-            </script>
-            <! - - Выбор даты и времени начала, его нужно передовать в бд -->
-
-            <p style="margin-left: 40px;"></p>
-            <label for="educationSelect"> Выберите дату и время конца  </label>
-
-            <input type="datetime-local" id="datetime">
-            <script>
-            document1.getElementById('datetimeLocalToday').value = new Date().toJSON().slice(0,0);
-            </script>
-            <! - - Выбор даты и времени начала, его нужно передовать в бд -->
-
-            <p style="margin-left: 40px;"></p>
-        </div>
-        <button type="submit" class="btn btn-primary">Подтвердить</button>
-        <! - - Кнопка подтверждения нового бронирования -->
+                {{ form.startdate.label }} {{form.startdate(class='datepicker')}} {{form.hidden_tag()}}
+                {{ form.enddate.label }} {{form.enddate(class='datetimepicker')}} {{form.hidden_tag()}}
+                <p>
+                {{form.submit()}}
+                </p>
+            </form>
     </form>
 </div>
 </body>

@@ -13,7 +13,7 @@ class BusyDay(SqlAlchemyBase, UserMixin, SerializerMixin):
     arrive_day = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     departure_day = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     hotel_id = sqlalchemy.Column(sqlalchemy.Integer,
-                                        sqlalchemy.ForeignKey("hotel.id"), nullable=False)
+                                        sqlalchemy.ForeignKey("hotel.id"), nullable=False, default=1)
 
     hotel = orm.relationship('Hotel')
 

@@ -6,6 +6,8 @@ from flask_login import LoginManager
 from data.db_sess import *
 from flask_login import LoginManager, login_user, login_required, logout_user
 from data import db_sess
+from wtforms.fields import DateField, TimeField, DateTimeField, SelectField
+from datetime import datetime, timedelta
 
 
 
@@ -31,7 +33,11 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember me')
     submit = SubmitField('Login')
     
-    
+class InfoForm(FlaskForm):
+    startdate = DateField('Start Date', format='%Y-%m-%d', validators=[DataRequired()])
+    enddate = DateField('End Date', format='%Y-%m-%d', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+ 
 
 
 
@@ -102,11 +108,22 @@ def cab():
 
 @app.route('/dt', methods=['POST', 'GET'])  # Страница выбора даты и времени
 def date_and_time():
-    form = FormsClass()
-    if request.method == 'GET':
-        return render_template('date_time_page.html', form=form)
-    elif request.method == 'POST':
+    form = InfoForm()
+    if form.validate_on_submit():
+        from data.busy_days import BusyDay
+        from data.db_sess import new_bron_in_bd
+        busy_day = BusyDay()
+        st = form.startdate.data
+        st_day = datetime(st) - datetime.date(datetime(day=1, month=1, year=st.year))
+        st_day = (st_day.days())
+        print(st_day, type(st_day))
+        busy_day.arrive_day = st_day
+        en = form.enddate.data
+        en_day = int(timedelta(en, datetime(day=1, month=1, year=en.year)).days)
+        busy_day.departure_day = en_day
+        new_bron_in_bd(busy_day)
         return redirect('/map')
+    return render_template('date_time_page.html', form=form)
 
 
 @app.route('/map', methods=['POST', 'GET'])  # Страница выбора адреса
