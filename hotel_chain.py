@@ -7,7 +7,7 @@ from data.db_sess import *
 from flask_login import LoginManager, login_user, login_required, logout_user
 from data import db_sess
 from wtforms.fields import DateField, TimeField, DateTimeField, SelectField
-from datetime import datetime, timedelta
+from datetime import datetime, date
 
 
 
@@ -106,6 +106,7 @@ def cab():
         return redirect('/dt')
 
 
+
 @app.route('/dt', methods=['POST', 'GET'])  # Страница выбора даты и времени
 def date_and_time():
     form = InfoForm()
@@ -113,14 +114,12 @@ def date_and_time():
         from data.busy_days import BusyDay
         from data.db_sess import new_bron_in_bd
         busy_day = BusyDay()
-        st = form.startdate.data
-        st_day = datetime(st) - datetime.date(datetime(day=1, month=1, year=st.year))
-        st_day = (st_day.days())
-        print(st_day, type(st_day))
-        busy_day.arrive_day = st_day
-        en = form.enddate.data
-        en_day = int(timedelta(en, datetime(day=1, month=1, year=en.year)).days)
-        busy_day.departure_day = en_day
+        st = form.startdate.data # дата начала
+        st_day = st - date(day=1, month=1, year=st.year)
+        busy_day.arrive_day = int(st_day.days)
+        en = form.enddate.data # дата конца
+        en_day = en - date(day=1, month=1, year=en.year)
+        busy_day.departure_day = int(en_day.days)
         new_bron_in_bd(busy_day)
         return redirect('/map')
     return render_template('date_time_page.html', form=form)
